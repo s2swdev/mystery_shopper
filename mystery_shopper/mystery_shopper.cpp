@@ -10,16 +10,42 @@ using namespace std;
 int checkWinner(vector<vector<string>> codeList, vector<string> shoppingCart)
 {
     // Insert code here
-    return 0;
+    int currentCartIndex = 0;
+    int currentCartIndexFinal = 0;
+
+    cout << "codeList size: " << codeList.size() << endl;
+
+    for (int i = 0; i < codeList.size(); i++)
+    {
+        currentCartIndexFinal = currentCartIndex;
+        for (int j = 0; j < codeList[i].size(); j++)
+        {
+            if (codeList[i][j] == shoppingCart[currentCartIndex] || codeList[i][j] == "anything")
+            {
+                cout << "Matched: " << codeList[i][j] << shoppingCart[currentCartIndex] << endl;
+                currentCartIndex++;
+            }
+            else
+            {
+                cout << "Not matched: " << codeList[i][j] << shoppingCart[currentCartIndex] << endl;
+                currentCartIndex = currentCartIndexFinal;
+            }
+        }
+    }
+
+    if (currentCartIndex == shoppingCart.size())
+        return 1;
+    else
+        return 0;
 }
 
 int main()
 {
     vector<vector<string> > prize{ { "orange" },
-                               { "orange", "anything", "bannana" },
+                               { "orange", "anything", "apple" },
                                { "anything", "orange", "apple" } };
 
-    vector<string> cart{ "orange", "orange", "orange", "orange", "orange", "orange", "orange" };
+    vector<string> cart{ "orange", "orange", "orange", "bannana", "orange", "orange", "apple" };
 
     int winner;
     winner = checkWinner(prize, cart);
